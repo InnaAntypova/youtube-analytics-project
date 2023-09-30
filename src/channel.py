@@ -34,9 +34,11 @@ class Channel:
 
     @classmethod
     def get_service(cls):
-        pass
+        """ Возвращает объект для работы с YouTube API"""
+        return cls.youtube
 
-    def to_json(self, channel_name):
+    def to_json(self, channel_name: str):
+        """ Сохраняет в файл значения атрибутов экземпляра `Channel` """
         to_json = {'channel_id': self.__channel_id,
                    'title': self.title,
                    'description': self.description,
@@ -47,5 +49,5 @@ class Channel:
                    }
 
         with open(channel_name, 'w') as f:
-            f.write(json.dumps(to_json))
+            f.write(json.dumps(to_json, indent=2, ensure_ascii=False))
 
