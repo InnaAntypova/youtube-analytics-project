@@ -12,7 +12,7 @@ class Channel:
 
         self.request = Channel.get_service().channels().list(
             part="snippet,contentDetails,statistics",
-            id="UC_x5XG1OV2P6uZZ5FSM9Ttw"
+            id=self.__channel_id
         ).execute()
 
         self.title = self.request['items'][0]['snippet']['title']
@@ -21,6 +21,10 @@ class Channel:
         self.description = self.request['items'][0]['snippet']['description']
         self.subscriber_count = self.request['items'][0]['statistics']['subscriberCount']
         self.view_count = self.request['items'][0]['statistics']['viewCount']
+
+    def __str__(self):
+        """ Возвращает информацию об экземпляре класса по шаблону '<Название канала> (<Ссылка на канал>)' """
+        return f"'{self.title} ({self.url})'"
 
     @property
     def channel_id(self):
@@ -50,4 +54,32 @@ class Channel:
 
         with open(channel_name, 'w') as f:
             f.write(json.dumps(to_json, indent=2, ensure_ascii=False))
+
+    def __add__(self, other):
+        """ Метод складывает данные двух каналов по кол-ву подписчиков"""
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other):
+        """ Метод вычитает данные двух каналов по кол-ву подписчиков"""
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __gt__(self, other):
+        """ Метод сравнивает ('больше') данные двух каналов по кол-ву подписчиков"""
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __ge__(self, other):
+        """ Метод сравнивает ('больше' или 'равно') данные двух каналов по кол-ву подписчиков"""
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+
+    def __lt__(self, other):
+        """ Метод сравнивает ('меньше') данные двух каналов по кол-ву подписчиков"""
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __le__(self, other):
+        """ Метод сравнивает ('меньше' или 'равно') данные двух каналов по кол-ву подписчиков"""
+        return int(self.subscriber_count) <= int(other.subscriber_count)
+
+    def __eq__(self, other):
+        """ Метод сравнивает ('равны' или 'не равны') данные двух каналов по кол-ву подписчиков"""
+        return int(self.subscriber_count) == int(other.subscriber_count)
 
