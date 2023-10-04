@@ -55,31 +55,31 @@ class Channel:
         with open(channel_name, 'w') as f:
             f.write(json.dumps(to_json, indent=2, ensure_ascii=False))
 
-    def __add__(self, other):
+    def __add__(self, other) -> int:
         """ Метод складывает данные двух каналов по кол-ву подписчиков"""
         return int(self.subscriber_count) + int(other.subscriber_count)
 
-    def __sub__(self, other):
+    def __sub__(self, other) -> int:
         """ Метод вычитает данные двух каналов по кол-ву подписчиков"""
         return int(self.subscriber_count) - int(other.subscriber_count)
 
-    def __gt__(self, other):
+    def __gt__(self, other) -> bool:
         """ Метод сравнивает ('больше') данные двух каналов по кол-ву подписчиков"""
         return int(self.subscriber_count) > int(other.subscriber_count)
 
-    def __ge__(self, other):
+    def __ge__(self, other) -> bool:
         """ Метод сравнивает ('больше' или 'равно') данные двух каналов по кол-ву подписчиков"""
         return int(self.subscriber_count) >= int(other.subscriber_count)
 
-    def __lt__(self, other):
+    def __lt__(self, other) -> bool:
         """ Метод сравнивает ('меньше') данные двух каналов по кол-ву подписчиков"""
         return int(self.subscriber_count) < int(other.subscriber_count)
 
-    def __le__(self, other):
+    def __le__(self, other) -> bool:
         """ Метод сравнивает ('меньше' или 'равно') данные двух каналов по кол-ву подписчиков"""
         return int(self.subscriber_count) <= int(other.subscriber_count)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         """ Метод сравнивает ('равны' или 'не равны') данные двух каналов по кол-ву подписчиков"""
         return int(self.subscriber_count) == int(other.subscriber_count)
 
