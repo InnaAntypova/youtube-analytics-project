@@ -17,7 +17,7 @@ class Channel:
 
         self.title = self.request['items'][0]['snippet']['title']
         self.video_count = self.request['items'][0]['statistics']['videoCount']
-        self.url = self.request['items'][0]['snippet']['thumbnails']['default']['url']
+        self.url = f"https://www.youtube.com/watch?v={self.__channel_id}"
         self.description = self.request['items'][0]['snippet']['description']
         self.subscriber_count = self.request['items'][0]['statistics']['subscriberCount']
         self.view_count = self.request['items'][0]['statistics']['viewCount']
