@@ -1,17 +1,19 @@
-import os
 import isodate
-from googleapiclient.discovery import build
 import json
 import datetime
+from src.MixinAPI import MixinAPI
 
 """ Класс для Video из Youtube"""
 
 
-class PlayList:
+class PlayList(MixinAPI):
     def __init__(self, playlist_id: str) -> None:
         """Экземпляр инициализируется id плейлиста. Остальные данные берем из API."""
         self.__playlist_id = playlist_id
         self.url = f"https://www.youtube.com/playlist?list={self.__playlist_id}"
+
+        # Получаем объект для работы с API
+        super().get_service()
 
         # Получаем playlist по его id
         self.playlist = PlayList.get_service().playlists().list(id=self.__playlist_id, part='snippet', ).execute()
@@ -72,9 +74,3 @@ class PlayList:
 
         return f"https://youtu.be/{best_video_id}"
 
-    @classmethod
-    def get_service(cls):
-        """ Возвращает объект для работы с YouTube API"""
-        api_key: str = os.getenv('YOUTUBE_API_KEY')
-        youtube = build('youtube', 'v3', developerKey=api_key)
-        return youtube
